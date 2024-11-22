@@ -4,5 +4,6 @@ module app {
 	requires javafx.media;
 	requires javafx.base;
 	requires javafx.swing;
+	requires java.sql;
 	exports app;
 }

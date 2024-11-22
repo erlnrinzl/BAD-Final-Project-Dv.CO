@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import util.RouteManager;
+import view.HomeView;
 import view.LoginView;
 import view.RegisterView;
 
@@ -24,10 +25,10 @@ public class Main extends Application {
 		
 		RouteManager.addRoute("login", () -> LoginView.render(), "Dv.CO | Login");
 		RouteManager.addRoute("register", () -> RegisterView.render(), "Dv.CO | Register");
+		RouteManager.addRoute("home", () -> HomeView.render(), "Dv.CO | Home");
 		
 		// start with login page
-		RouteManager.navigate("login");				
-		primaryStage.setTitle("Dv.CO|Login");
+		RouteManager.navigate("home");
 		primaryStage.show();
 //		primaryStage.setOnCloseRequest(e->{
 //			Alert alert = new Alert(AlertType.CONFIRMATION);

@@ -36,6 +36,7 @@ public class LoginView {
 		
 		Button loginBtn = new Button("Login");
 		
+		
 		GridPane gridLayout = new GridPane();
 		gridLayout.add(emailLabel, 0, 0);
 		gridLayout.add(emailField, 1, 0);
