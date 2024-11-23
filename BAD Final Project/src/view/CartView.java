@@ -1,12 +1,17 @@
 package view;
 
 import controller.CartController;
+import controller.TransactionHeaderController;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -18,13 +23,17 @@ import model.Cart;
 
 public class CartView {
 	private static CartController cartController = new CartController();
+	private static TransactionHeaderController transactionController = new TransactionHeaderController();
+	private static Cart selectedCart;
+	private static ObservableList<Cart> selectedUserCarts;
 	
 	public static Scene render() {
 		cartController.loadUserCart();
+		selectedUserCarts = FXCollections.observableArrayList();
 		
 		Label titleLabel = new Label("Your Cart");
 		titleLabel.setFont(new Font("Arial Black", 36));
-		Label subtotalLabel = new Label("Rp." + String.format("%,.2f",cartController.calculateSubtotal()));
+		Label subtotalLabel = new Label("Rp." + String.format("%,.2f", cartController.calculateSubtotal(selectedUserCarts)));
 		subtotalLabel.setFont(new Font("Arial Black", 12));
 		
 		TableView<Cart> cartTable= new TableView<Cart>();
@@ -42,9 +51,26 @@ public class CartView {
 		
 		cartTable.setItems(cartController.getUserCart());
 		
+		cartTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null) {
+				selectedCart = newValue;
+				
+				//wrap inside array
+				selectedUserCarts.clear();
+				selectedUserCarts.add(selectedCart);
+				subtotalLabel.setText("Rp." + String.format("%,.2f", cartController.calculateSubtotal(selectedUserCarts)));
+			}
+		});
+		
 		Button checkoutBtn = new Button("Checkout");
 		checkoutBtn.setOnMouseClicked(e->{
-			//do something here, use transactionController
+			if (selectedCart != null) {
+				transactionController.createTransaction(selectedUserCarts);
+			} else {
+				Alert checkoutFailAlert = new Alert(AlertType.ERROR);
+				checkoutFailAlert.setContentText("No item selected for checkout");
+				checkoutFailAlert.showAndWait();
+			}
 		});
 		
 		VBox cartLayout = new VBox();

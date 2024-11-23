@@ -30,7 +30,7 @@ public class Main extends Application {
 		RouteManager.addRoute("cart", () -> CartView.render(), "Dv.CO | Cart");
 		
 		// start with login page
-		RouteManager.navigate("home");
+		RouteManager.navigate("cart");
 		primaryStage.show();
 //		primaryStage.setOnCloseRequest(e->{
 //			Alert alert = new Alert(AlertType.CONFIRMATION);
