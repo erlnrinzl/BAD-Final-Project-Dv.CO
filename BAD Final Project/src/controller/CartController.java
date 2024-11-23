@@ -8,29 +8,16 @@ import javafx.collections.ObservableList;
 import model.Cart;
 import model.Donut;
 import model.User;
+import util.SessionManager;
 
 public class CartController {
 	private CartDAO cartDAO;
 	private ObservableList<Cart> userCart;
-	private User user = new User(
-			"Dummy Name",
-			"email@mail.com",
-			"pass123",
-			"male",
-			"Indonesia",
-			"08231231231",
-			"User",
-			10
-		);
-	
 	
 	public CartController() {
 		super();
 		this.cartDAO = new CartDAO();
 		this.userCart = FXCollections.observableArrayList();
-		
-		//to be removed soon!
-		this.user.setUserID("US001");
 	}
 
 	public ObservableList<Cart> getUserCart() {
@@ -39,7 +26,7 @@ public class CartController {
 
 	public void loadUserCart() {
 		this.userCart.clear();
-		this.userCart.addAll(cartDAO.read(this.user.getUserID()));
+		this.userCart.addAll(cartDAO.read(SessionManager.getUser().getUserID()));
 	}
 	
 	public Double calculateSubtotal(ObservableList<Cart> selectedUserCart) {
@@ -52,7 +39,7 @@ public class CartController {
 	}
 	
 	public Cart addCart(Integer qty, Donut donut) {
-		Cart cart = new Cart(this.user.getUserID(), qty, donut);
+		Cart cart = new Cart(SessionManager.getUser().getUserID(), qty, donut);
 		this.cartDAO.create(cart);
 		this.userCart.add(cart);
 		//this.loadUserCart();

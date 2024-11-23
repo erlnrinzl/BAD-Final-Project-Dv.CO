@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 public class RouteManager {
 	private static Stage primaryStage;
 	private static final HashMap<String, Route> routes = new HashMap<>();
+	private static String currentRoute;
 	
 	public static void init(Stage stage) {
 		primaryStage = stage;
@@ -24,6 +25,7 @@ public class RouteManager {
 		}
 		
 		Route route = routes.get(routeName);
+		currentRoute = routeName;
 		
 		primaryStage.setScene(route.sceneSupplier.get());
 		primaryStage.setTitle(route.title);
@@ -38,4 +40,13 @@ public class RouteManager {
 			this.title = title;
 		}
 	}
+
+	public static String getCurrentRoute() {
+		return currentRoute;
+	}
+
+	public static void setCurrentRoute(String currentRoute) {
+		RouteManager.currentRoute = currentRoute;
+	}
+	
 }

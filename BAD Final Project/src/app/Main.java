@@ -5,7 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import model.User;
 import util.RouteManager;
+import util.SessionManager;
 import view.CartView;
 import view.HomeView;
 import view.LoginView;
@@ -29,8 +31,27 @@ public class Main extends Application {
 		RouteManager.addRoute("home", () -> HomeView.render(), "Dv.CO | Home");
 		RouteManager.addRoute("cart", () -> CartView.render(), "Dv.CO | Cart");
 		
+		// to be deleted soon!
+		User activeUser = new User(
+				"Dummy Name",
+				"email@mail.com",
+				"pass123",
+				"male",
+				"Indonesia",
+				"08231231231",
+				"User",
+				10
+			);
+		activeUser.setUserID("US001");
+		SessionManager.login(activeUser);
+//		SessionManager.logout();
+		
 		// start with login page
-		RouteManager.navigate("cart");
+		try {
+			RouteManager.navigate("home");			
+		} catch (Exception e) {
+			RouteManager.navigate("login");
+		}
 		primaryStage.show();
 //		primaryStage.setOnCloseRequest(e->{
 //			Alert alert = new Alert(AlertType.CONFIRMATION);

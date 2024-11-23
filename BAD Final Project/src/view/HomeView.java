@@ -22,18 +22,20 @@ public class HomeView {
 	
 	private static VBox vLayout, detailLayout;
 	private static ListView<String> donutList = new ListView<String>();
-	private static String userRole = "User";
 	private static DonutController donutController= new DonutController();
 	private static CartController cartController = new CartController();
 	
 	public static Scene render() {
-		Label profileLabel = new Label("Hello, " + "(replace with username)");
+		Label profileLabel = new Label("Hello, " + SessionManager.getUser().getUsername());
 		profileLabel.setFont(new Font("Arial Black", 36));		
 		
 		vLayout = new VBox();
+		detailLayout = new VBox();
+
 		vLayout.getChildren().add(profileLabel);
+		detailLayout.getChildren().clear();
 		
-		if (userRole != "User") {
+		if (SessionManager.getUser().getRole() != "User") {
 			// render admin view
 		} else {
 			renderCustomerView();
@@ -51,18 +53,15 @@ public class HomeView {
 		
 		FlowPane addCartLayout = new FlowPane();
 		addCartLayout.getChildren().add(donutList);
+		addCartLayout.getChildren().add(detailLayout);
 		
 		donutList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
 				Donut selectedDonut = donutController.findDonutByName(newValue);
 				
 				if (selectedDonut != null) {
-	                if (detailLayout != null) {
-	                    addCartLayout.getChildren().remove(detailLayout);
-	                }
-	                
+					detailLayout.getChildren().clear();
 					renderDetail(selectedDonut);
-					addCartLayout.getChildren().add(detailLayout);
 				}
 			}
 		});
@@ -97,7 +96,6 @@ public class HomeView {
         	cartController.addCart(qty, donut);
         });
 		
-		detailLayout = new VBox();
 		detailLayout.getChildren().add(productNameLabel);
 		detailLayout.getChildren().add(productDescLabel);
 		detailLayout.getChildren().add(productPriceLabel);
