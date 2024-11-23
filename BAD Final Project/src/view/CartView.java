@@ -66,6 +66,9 @@ public class CartView {
 		checkoutBtn.setOnMouseClicked(e->{
 			if (selectedCart != null) {
 				transactionController.createTransaction(selectedUserCarts);
+				Alert checkoutSuccessAlert = new Alert(AlertType.INFORMATION);
+				checkoutSuccessAlert.setContentText("Checkout success");
+				checkoutSuccessAlert.showAndWait();
 			} else {
 				Alert checkoutFailAlert = new Alert(AlertType.ERROR);
 				checkoutFailAlert.setContentText("No item selected for checkout");
