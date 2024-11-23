@@ -11,15 +11,7 @@ import java.util.List;
 
 import model.Donut;
 
-public class DonutDAO {
-	
-	private static final String URL = System.getenv("DB_URL");
-	private static final String USER = System.getenv("DB_USER");
-	private static final String PASSWORD = System.getenv("DB_PASS");
-	
-	private Connection getConnection() throws SQLException {	
-		return DriverManager.getConnection(URL, USER, PASSWORD);
-	}
+public class DonutDAO extends DatabaseConfig {
 
 	public void create(Donut donut) {
 		String sql = "INSERT INTO msdonut (DonutID, DonutName, DonutDescription, DonutPrice) VALUES (?, ?, ?, ?)";
@@ -89,5 +81,29 @@ public class DonutDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Donut getDonutByID(String donutId) {
+		String sql = "SELECT * FROM msdonut WHERE DonutID = ?";
+		try {
+			Connection conn = getConnection();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, donutId);
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				return new Donut(
+					rs.getString("DonutID"), 
+					rs.getString("DonutName"), 
+					rs.getString("DonutDescription"), 
+					rs.getDouble("DonutPrice")
+				);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
