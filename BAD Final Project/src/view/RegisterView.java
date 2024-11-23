@@ -114,6 +114,6 @@ public class RegisterView {
 		vLayout.setPadding(new Insets(50));
 		vLayout.setSpacing(10);
         
-		return new AppShell().render(vLayout);
+		return AppShell.render(vLayout);
 	}
 }

@@ -17,14 +17,14 @@ import javafx.scene.text.Font;
 import model.Cart;
 
 public class CartView {
-	private static CartController controller = new CartController();
+	private static CartController cartController = new CartController();
 	
 	public static Scene render() {
-		controller.loadUserCart();
+		cartController.loadUserCart();
 		
 		Label titleLabel = new Label("Your Cart");
 		titleLabel.setFont(new Font("Arial Black", 36));
-		Label subtotalLabel = new Label("Rp." + String.format("%,.2f",controller.calculateSubtotal()));
+		Label subtotalLabel = new Label("Rp." + String.format("%,.2f",cartController.calculateSubtotal()));
 		subtotalLabel.setFont(new Font("Arial Black", 12));
 		
 		TableView<Cart> cartTable= new TableView<Cart>();
@@ -40,9 +40,12 @@ public class CartView {
 		
 		cartTable.getColumns().addAll(nameCol, priceCol, qtyCol, totalCol);
 		
-		cartTable.setItems(controller.getUserCart());
+		cartTable.setItems(cartController.getUserCart());
 		
 		Button checkoutBtn = new Button("Checkout");
+		checkoutBtn.setOnMouseClicked(e->{
+			//do something here, use transactionController
+		});
 		
 		VBox cartLayout = new VBox();
 		cartLayout.getChildren().add(titleLabel);

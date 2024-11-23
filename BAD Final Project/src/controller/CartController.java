@@ -6,6 +6,7 @@ import dao.CartDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Cart;
+import model.Donut;
 
 public class CartController {
 	private CartDAO cartDAO;
@@ -15,17 +16,16 @@ public class CartController {
 	public CartController() {
 		super();
 		this.cartDAO = new CartDAO();
-		userCart = FXCollections.observableArrayList();
+		this.userCart = FXCollections.observableArrayList();
 	}
 
 	public ObservableList<Cart> getUserCart() {
-		return userCart;
+		return this.userCart;
 	}
 
 	public void loadUserCart() {
-		List<Cart> testCart = cartDAO.read(userID);
-		userCart.clear();
-		userCart.addAll(cartDAO.read(userID));
+		this.userCart.clear();
+		this.userCart.addAll(cartDAO.read(userID));
 	}
 	
 	public Double calculateSubtotal() {
@@ -34,7 +34,25 @@ public class CartController {
 		for (Cart cart : this.userCart) {
 			subtotal += cart.getTotalPrice();
 		}
-		
 		return subtotal;
+	}
+	
+	public void addCart(Integer qty, Donut donut) {
+		Cart cart = new Cart(this.userID, qty, donut);
+		this.cartDAO.create(cart);
+		this.userCart.add(cart);
+		//this.loadUserCart();
+	}
+	
+	// not implemented in assigment
+	public void updateCart(Cart cart) {
+		this.cartDAO.update(cart);
+		//this.userCart.
+	}
+	
+	public void deleteCart(Cart cart) {
+		this.userCart.remove(cart);
+		//this.loadUserCart();
+		this.cartDAO.delete(cart);
 	}
 }

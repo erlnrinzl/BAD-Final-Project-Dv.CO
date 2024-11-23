@@ -7,7 +7,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
-public class AppShell {
+abstract public class AppShell {
 	private static MenuBar menuBar = new MenuBar();
 	private static String userID = null;
 	private static String userRole = "User";

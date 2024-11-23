@@ -1,5 +1,6 @@
 package view;
 
+import controller.CartController;
 import controller.DonutController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -22,7 +23,8 @@ public class HomeView {
 	private static VBox vLayout, detailLayout;
 	private static ListView<String> donutList = new ListView<String>();
 	private static String userRole = "User";
-	private static DonutController controller = new DonutController();
+	private static DonutController donutController= new DonutController();
+	private static CartController cartController = new CartController();
 	
 	public static Scene render() {
 		Label profileLabel = new Label("Hello, " + "(replace with username)");
@@ -40,7 +42,7 @@ public class HomeView {
 		vLayout.setPadding(new Insets(50));
 		vLayout.setSpacing(10);
 		
-		return new AppShell().render(vLayout);
+		return AppShell.render(vLayout);
 	}
 	
 	private static void renderCustomerView() {
@@ -52,7 +54,7 @@ public class HomeView {
 		
 		donutList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null) {
-				Donut selectedDonut = controller.findDonutByName(newValue);
+				Donut selectedDonut = donutController.findDonutByName(newValue);
 				
 				if (selectedDonut != null) {
 	                if (detailLayout != null) {
@@ -72,9 +74,9 @@ public class HomeView {
 	
 	private static void updateDisplayedDonut() {
 		donutList.getItems().clear();		
-		controller.loadDonutProducts();
+		donutController.loadDonutProducts();
 		
-		for (Donut donut : controller.getDonutProducts()) {
+		for (Donut donut : donutController.getDonutProducts()) {
 			donutList.getItems().add(donut.getDonutName());			
 		}
 	}
@@ -83,7 +85,7 @@ public class HomeView {
 		Label productNameLabel = new Label(donut.getDonutName());
 		productNameLabel.setFont(new Font("Arial Black", 24));
 		Label productDescLabel = new Label(donut.getDonutDescription());
-		Label productPriceLabel = new Label("Rp." + donut.getDonutPrice().toString());
+		Label productPriceLabel = new Label("Rp." + String.format("%,.2f", donut.getDonutPrice()));
 		productPriceLabel.setFont(new Font("Arial Black", 12));
 		
 		Spinner<Integer> qtySpinner = new Spinner<>(1, 999, 1);
@@ -91,7 +93,8 @@ public class HomeView {
         
         Button addCartBtn = new Button("Add to cart");
         addCartBtn.setOnAction(e->{
-        	//do something here
+        	Integer qty = qtySpinner.getValue();
+        	cartController.addCart(qty, donut);
         });
 		
 		detailLayout = new VBox();

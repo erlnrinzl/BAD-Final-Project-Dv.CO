@@ -24,7 +24,7 @@ public class CartDAO extends DatabaseConfig {
 			stmt.setInt(3, cart.getQuantity());
 			
 			stmt.executeUpdate();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -52,6 +52,40 @@ public class CartDAO extends DatabaseConfig {
 		}
 		
 	      return carts;
+	}
+	
+	public void update(Cart cart) {
+		// only update cart qty
+		String sql = "UPDATE cart SET Quantity = ?, WHERE UserID = ? AND DonutID = ?";
+		
+		try {
+			Connection conn = getConnection();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			stmt.setInt(1, cart.getQuantity());
+			stmt.setString(3, cart.getUserID());
+			stmt.setString(4, cart.getDonutID());
+			
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(Cart cart) {
+		String sql = "DELETE FROM cart WHERE UserID = ? AND DonutID = ?";
+		try {
+			Connection conn = getConnection();
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			stmt.setString(1, cart.getUserID());
+			stmt.setString(1, cart.getDonutID());
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

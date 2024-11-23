@@ -6,13 +6,6 @@ public class Cart {
 	
 	private Donut donut;
 	
-	public Cart(String userID, String donutID, Integer quantity) {
-		super();
-		this.userID = userID;
-		this.DonutID = donutID;
-		this.quantity = quantity;
-	}
-	
 	public Cart(String userID, Integer quantity, Donut donut) {
 		super();
 		this.userID = userID;
@@ -29,7 +22,7 @@ public class Cart {
 	}
 
 	public String getDonutID() {
-		return DonutID;
+		return this.donut.getDonutID();
 	}
 
 	public void setDonutID(String donutID) {
