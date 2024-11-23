@@ -39,11 +39,26 @@ public class CartController {
 	}
 	
 	public Cart addCart(Integer qty, Donut donut) {
-		Cart cart = new Cart(SessionManager.getUser().getUserID(), qty, donut);
-		this.cartDAO.create(cart);
-		this.userCart.add(cart);
-		//this.loadUserCart();
-		return cart;
+		//check whether items already inside cart
+		Cart existingCart = null;
+		
+		for (Cart cart : this.userCart) {
+			if (cart.getDonutID().equals(donut.getDonutID())) {
+				existingCart= cart;
+				break;
+			}
+		}
+
+		if (existingCart!= null) {
+			existingCart.setQuantity(existingCart.getQuantity() + qty);
+			this.cartDAO.update(existingCart);
+			return existingCart;
+		}
+		
+		Cart newCart = new Cart(SessionManager.getUser().getUserID(), qty, donut);			
+		this.cartDAO.create(newCart);
+		this.userCart.add(newCart);
+		return newCart;
 	}
 	
 	// not implemented in case assigment

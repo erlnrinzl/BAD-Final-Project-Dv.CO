@@ -26,6 +26,8 @@ public class HomeView {
 	private static CartController cartController = new CartController();
 	
 	public static Scene render() {
+		cartController.loadUserCart();
+		
 		Label profileLabel = new Label("Hello, " + SessionManager.getUser().getUsername());
 		profileLabel.setFont(new Font("Arial Black", 36));		
 		
