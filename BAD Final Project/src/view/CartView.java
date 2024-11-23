@@ -66,6 +66,7 @@ public class CartView {
 		checkoutBtn.setOnMouseClicked(e->{
 			if (selectedCart != null) {
 				transactionController.createTransaction(selectedUserCarts);
+				cartController.deleteCart(selectedCart);
 				Alert checkoutSuccessAlert = new Alert(AlertType.INFORMATION);
 				checkoutSuccessAlert.setContentText("Checkout success");
 				checkoutSuccessAlert.showAndWait();
