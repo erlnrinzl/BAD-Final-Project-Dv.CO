@@ -62,7 +62,7 @@ public class LoginView {
 		vLayout.setPadding(new Insets(50));
 		vLayout.setSpacing(10);
 		
-		return new Scene(vLayout);
+		return AppShell.render(vLayout);
 	}
 
 }

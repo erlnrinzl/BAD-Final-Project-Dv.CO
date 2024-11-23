@@ -53,6 +53,6 @@ public class CartView {
 		cartLayout.setSpacing(10);
 		cartLayout.setAlignment(Pos.CENTER);
 		
-		return new Scene(cartLayout);
+		return AppShell.render(cartLayout);
 	}
 }
