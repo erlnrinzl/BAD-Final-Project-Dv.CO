@@ -29,7 +29,7 @@ abstract public class AppShell {
 		rootLayout.setTop(menuBar);
 		rootLayout.setCenter(childPane);
 		
-		return new Scene(rootLayout);
+		return new Scene(rootLayout, 800, 600);
 	}
 	
 	private static void renderCustomerMenu() {
@@ -38,6 +38,10 @@ abstract public class AppShell {
 		MenuItem logoutSubMenu = new MenuItem("Logout");
 		MenuItem homeSubMenu = new MenuItem("Home");
 		MenuItem cartSubMenu = new MenuItem("Cart");
+		
+		logoutSubMenu.setOnAction(e->{
+			//do something, use loginController
+		});
 		
 		if (RouteManager.getCurrentRoute().equals("home")) {
 			homeSubMenu.setStyle("-fx-font-weight: bold; -fx-text-fill: black;");
@@ -66,6 +70,10 @@ abstract public class AppShell {
 		
 		logoutMenu.getItems().add(logoutSubMenu);
 		menuBar.getMenus().add(logoutMenu);
+		
+		logoutSubMenu.setOnAction(e->{
+			//do something, use loginController
+		});
 	}
 	
 	private static void renderGuestMenu() {

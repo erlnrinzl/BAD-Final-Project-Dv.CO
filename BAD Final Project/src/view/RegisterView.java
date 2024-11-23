@@ -57,10 +57,12 @@ public class RegisterView {
 		RadioButton femaleRadio = new RadioButton("Female");
 		ToggleGroup genderGroup = new ToggleGroup();
 		maleRadio.setToggleGroup(genderGroup);
+		maleRadio.setSelected(true);
 		femaleRadio.setToggleGroup(genderGroup);
 
 		ChoiceBox<String> countryChoiceBox = new ChoiceBox<>();
 		countryChoiceBox.getItems().addAll("Indonesia", "Malaysia", "Singapore", "Thailand");
+		countryChoiceBox.getSelectionModel().selectFirst();
 		
 		Spinner<Integer> ageSpinner = new Spinner<>(1, 100, 18);
         ageSpinner.setEditable(true);
