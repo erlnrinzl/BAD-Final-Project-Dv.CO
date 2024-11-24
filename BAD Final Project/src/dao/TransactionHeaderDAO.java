@@ -17,8 +17,8 @@ public class TransactionHeaderDAO extends DatabaseConfig {
         	ResultSet rs = stmt.executeQuery();
         	
             if (rs.next()) {
-                int totalTransactions = rs.getInt("total") + 1; // Get current count and add 1
-                return String.format("TR%03d", totalTransactions); // Format as TR001, TR002, etc.
+                int totalTransactions = rs.getInt("total") + 1;
+                return String.format("TR%03d", totalTransactions);
             }
         } catch (SQLException e) {
             e.printStackTrace();

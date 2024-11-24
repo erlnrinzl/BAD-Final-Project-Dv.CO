@@ -56,15 +56,15 @@ public class CartDAO extends DatabaseConfig {
 	
 	public void update(Cart cart) {
 		// only update cart qty
-		String sql = "UPDATE cart SET Quantity = ?, WHERE UserID = ? AND DonutID = ?";
+		String sql = "UPDATE cart SET Quantity = ? WHERE UserID = ? AND DonutID = ?";
 		
 		try {
 			Connection conn = getConnection();
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
 			stmt.setInt(1, cart.getQuantity());
-			stmt.setString(3, cart.getUserID());
-			stmt.setString(4, cart.getDonutID());
+			stmt.setString(2, cart.getUserID());
+			stmt.setString(3, cart.getDonutID());
 			
 			stmt.executeUpdate();
 			
@@ -80,7 +80,7 @@ public class CartDAO extends DatabaseConfig {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			
 			stmt.setString(1, cart.getUserID());
-			stmt.setString(1, cart.getDonutID());
+			stmt.setString(2, cart.getDonutID());
 			stmt.executeUpdate();
 			
 		} catch (SQLException e) {

@@ -30,6 +30,8 @@ public class CartView {
 	public static Scene render() {
 		cartController.loadUserCart();
 		selectedUserCarts = FXCollections.observableArrayList();
+		selectedUserCarts.clear();
+		selectedCart = null;
 		
 		Label titleLabel = new Label("Your Cart");
 		titleLabel.setFont(new Font("Arial Black", 36));
