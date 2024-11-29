@@ -1,9 +1,6 @@
 package app;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.User;
 import util.RouteManager;
@@ -25,11 +22,10 @@ public class Main extends Application {
 		// TODO Auto-generated method stub
 		
 		RouteManager.init(primaryStage);
-		
-		RouteManager.addRoute("login", () -> LoginView.render(), "Dv.CO | Login");
-		RouteManager.addRoute("register", () -> RegisterView.render(), "Dv.CO | Register");
-		RouteManager.addRoute("home", () -> HomeView.render(), "Dv.CO | Home");
-		RouteManager.addRoute("cart", () -> CartView.render(), "Dv.CO | Cart");
+		RouteManager.addRoute("login", new LoginView(), "Dv.CO | Login");
+		RouteManager.addRoute("register", new RegisterView(), "Dv.CO | Register");
+		RouteManager.addRoute("home", new HomeView(), "Dv.CO | Home");
+		RouteManager.addRoute("cart", new CartView(), "Dv.CO | Cart");
 		
 		// to be deleted soon!
 		User activeUser = new User(
@@ -44,11 +40,11 @@ public class Main extends Application {
 			);
 		activeUser.setUserID("US001");
 		SessionManager.login(activeUser);
-//		SessionManager.logout();
+		SessionManager.logout();
 		
 		// start with login page
 		try {
-			RouteManager.navigate("home");			
+			RouteManager.navigate("home");
 		} catch (Exception e) {
 			RouteManager.navigate("login");
 		}
