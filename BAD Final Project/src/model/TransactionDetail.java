@@ -5,18 +5,16 @@ public class TransactionDetail {
 	private String donutID;
 	private Integer quantity;
 	
-	private Cart cart;
 	private Donut donut;
 	private TransactionHeader transactionHeader;
 	
-	public TransactionDetail(Cart cart, TransactionHeader transactionHeader) {
+	public TransactionDetail(TransactionHeader transactionHeader, Donut donut, Integer qty) {
 		super();
-		this.cart = cart;
 		this.transactionHeader = transactionHeader;
 		this.transactionID = transactionHeader.getTransactionID();
-		this.donutID = this.cart.getDonutID();
-		this.donut = this.cart.getDonut();
-		this.quantity = this.cart.getQuantity();
+		this.donutID = donut.getDonutID();
+		this.donut = donut;
+		this.quantity = qty;
 	}
 
 	public String getTransactionID() {
@@ -41,14 +39,6 @@ public class TransactionDetail {
 
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
-	}
-
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
 	}
 
 	public TransactionHeader getTransactionHeader() {

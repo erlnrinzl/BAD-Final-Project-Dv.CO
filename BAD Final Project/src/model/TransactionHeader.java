@@ -18,12 +18,6 @@ public class TransactionHeader {
 		this.user = user;
 		this.userID = user.getUserID();
 	}
-	
-    public void initializeTransactionDetails(ObservableList<Cart> userCart) {
-        for (Cart cart : userCart) {
-            this.transactionDetails.add(new TransactionDetail(cart, this));
-        }
-    }
 
 	public String getTransactionID() {
 		return transactionID;

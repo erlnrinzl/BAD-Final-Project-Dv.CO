@@ -40,7 +40,7 @@ public class Main extends Application {
 			);
 		activeUser.setUserID("US001");
 		SessionManager.login(activeUser);
-		SessionManager.logout();
+//		SessionManager.logout();
 		
 		// start with login page
 		try {
