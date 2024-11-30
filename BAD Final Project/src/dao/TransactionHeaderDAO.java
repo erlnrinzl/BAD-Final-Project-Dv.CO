@@ -10,15 +10,16 @@ import model.TransactionHeader;
 public class TransactionHeaderDAO extends DatabaseConfig {
 	
     public String generateTransactionID() {
-        String sql = "SELECT COUNT(*) AS total FROM transactionheader";
+        String sql = "SELECT * FROM transactionheader ORDER BY TransactionID DESC LIMIT 1";
         try {
         	Connection conn = getConnection();
         	PreparedStatement stmt = conn.prepareStatement(sql);
         	ResultSet rs = stmt.executeQuery();
         	
             if (rs.next()) {
-                int totalTransactions = rs.getInt("total") + 1;
-                return String.format("TR%03d", totalTransactions);
+            	String lastTransactionID = rs.getString("TransactionID");
+                Integer nextTransactionID = Integer.parseInt(lastTransactionID.split("TR")[1]) + 1;
+                return String.format("TR%03d", nextTransactionID);
             }
         } catch (SQLException e) {
             e.printStackTrace();

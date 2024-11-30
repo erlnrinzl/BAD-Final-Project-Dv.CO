@@ -38,6 +38,10 @@ public class User extends Model {
 		return this.id;
 	}
 
+	public void setUserID(String id) {
+		this.id = id;
+	}
+
 	public String getUsername() {
 		return username;
 	}

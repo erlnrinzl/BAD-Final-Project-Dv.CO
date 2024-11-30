@@ -61,7 +61,7 @@ public class CartController {
 		return newCart;
 	}
 	
-	// not implemented in case assigment
+	// not implemented in case assignment
 	public Cart updateCart(Cart cart) {
 		this.cartDAO.update(cart);
 		//this.userCart.

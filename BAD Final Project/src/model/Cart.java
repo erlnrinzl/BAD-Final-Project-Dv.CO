@@ -1,7 +1,7 @@
 package model;
 
 public class Cart {
-	private String userID, DonutID;
+	private String userID, donutID;
 	private Integer quantity = 0;
 	
 	private Donut donut;
@@ -10,11 +10,12 @@ public class Cart {
 		super();
 		this.userID = userID;
 		this.donut = donut;
+		this.donutID = donut.getDonutID();
 		this.quantity = quantity;
 	}
 
 	public String getUserID() {
-		return userID;
+		return this.userID;
 	}
 
 	public void setUserID(String userID) {
@@ -26,7 +27,7 @@ public class Cart {
 	}
 
 	public void setDonutID(String donutID) {
-		DonutID = donutID;
+		this.donut.setDonutID(donutID);
 	}
 
 	public Integer getQuantity() {

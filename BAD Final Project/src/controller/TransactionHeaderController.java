@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import model.Cart;
 import model.TransactionDetail;
 import model.TransactionHeader;
-import model.User;
 import util.SessionManager;
 
 public class TransactionHeaderController {
@@ -14,16 +13,20 @@ public class TransactionHeaderController {
 	private TransactionDetailDAO detailDAO = new TransactionDetailDAO();
 	
 	public TransactionHeader createTransaction(ObservableList<Cart> userCart) {
-		// to be removed soon!
 		TransactionHeader header = new TransactionHeader(SessionManager.getUser());
 		header.setTransactionID(this.headerDAO.generateTransactionID());
-		header.initializeTransactionDetails(userCart);
 		
+		// create model instance for details
+		for (Cart cart : userCart) {
+			header.getTransactionDetails().add(new TransactionDetail(header, cart.getDonut(), cart.getQuantity()));
+		}
+		
+		// store to database
 		this.headerDAO.create(header);
 		for (TransactionDetail	detail: header.getTransactionDetails()) {
 			this.detailDAO.create(detail);
 		}
 		
 		return header;
-	}
+	}	
 }
