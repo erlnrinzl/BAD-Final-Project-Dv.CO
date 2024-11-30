@@ -16,9 +16,6 @@ public class TransactionHeaderController {
 		TransactionHeader header = new TransactionHeader(SessionManager.getUser());
 		header.setTransactionID(this.headerDAO.generateTransactionID());
 		
-		System.out.println(header.getTransactionID());
-		System.exit(0);
-		
 		// create model instance for details
 		for (Cart cart : userCart) {
 			header.getTransactionDetails().add(new TransactionDetail(header, cart.getDonut(), cart.getQuantity()));
