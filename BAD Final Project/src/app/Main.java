@@ -1,5 +1,8 @@
 package app;
 
+import java.util.List;
+
+import dao.UserDAO;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.User;
@@ -13,8 +16,7 @@ import view.RegisterView;
 public class Main extends Application {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		launch(args);
+		Application.launch(args);
 	}
 
 	@Override
