@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -25,7 +26,7 @@ public class LoginView extends Page {
 	private Label emailLabel;
 	private Label passLabel;
 	private Label registerLabel;
-	private Label registerRouteLabel;
+	private Hyperlink registerRouteLink;
 	private TextField emailField;
 	private PasswordField passField;
 	private Button loginBtn;
@@ -43,8 +44,8 @@ public class LoginView extends Page {
 		emailLabel = new Label("Email");
 		passLabel = new Label("Password");
 		registerLabel = new Label("Don't have an account?");
-		registerRouteLabel = new Label("Sign Up!");
-		registerRouteLabel.setTextFill(Color.DARKBLUE);
+		registerRouteLink = new Hyperlink("Sign Up!");
+		registerRouteLink.setTextFill(Color.DARKBLUE);
 		emailField = new TextField();
 		passField = new PasswordField();
 		loginBtn = new Button("Login");
@@ -64,7 +65,7 @@ public class LoginView extends Page {
 		gridLayout.setVgap(10);
 
 		FlowPane fpLayout = new FlowPane();
-		fpLayout.getChildren().addAll(registerLabel, registerRouteLabel);
+		fpLayout.getChildren().addAll(registerLabel, registerRouteLink);
 		fpLayout.setAlignment(Pos.CENTER);
 		fpLayout.setPadding(new Insets(10));
 		fpLayout.setHgap(10);
@@ -97,7 +98,7 @@ public class LoginView extends Page {
 			}
 		});
 
-		registerRouteLabel.setOnMouseClicked(e -> {
+		registerRouteLink.setOnMouseClicked(e -> {
 			RouteManager.navigate("register");
 		});
 	}
