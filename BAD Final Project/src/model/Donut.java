@@ -6,6 +6,9 @@ public class Donut {
 	private String donutDescription;
 	private Double donutPrice;
 	
+	public Donut() {
+	}
+	
 	public Donut(String donutID, String donutName, String donutDescription, Double donutPrice) {
 		super();
 		this.donutID = donutID;
