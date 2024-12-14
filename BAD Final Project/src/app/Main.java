@@ -22,15 +22,14 @@ public class Main extends Application {
 		RouteManager.init(primaryStage);
 		RouteManager.addRoute("login", new LoginView(), "Dv.CO | Login");
 		RouteManager.addRoute("register", new RegisterView(), "Dv.CO | Register");
-		RouteManager.addRoute("home", new HomeView(), "Dv.CO | Home");
 		RouteManager.addRoute("admin_home", new AdminHome(), "Dv.CO | Home");
 		RouteManager.addRoute("customer_home", new HomeView(), "Dv.CO | Home");
 		RouteManager.addRoute("cart", new CartView(), "Dv.CO | Cart");
 		
 		try {
-			RouteManager.navigate("home");
-		} catch (Exception e) {
 			RouteManager.navigate("login");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		primaryStage.show();

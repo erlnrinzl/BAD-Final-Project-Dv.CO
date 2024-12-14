@@ -18,7 +18,7 @@ abstract public class AppShell {
 		clearMenus();
 
 		if (SessionManager.isLoggedIn()) {
-			if (SessionManager.getUser().getRole() != "User") {
+			if (SessionManager.getUser().getRole().equalsIgnoreCase("admin")) {
 				renderAdminMenu();
 			} else {
 				renderCustomerMenu();
@@ -45,7 +45,7 @@ abstract public class AppShell {
 			authController.logout();
 		});
 
-		if (RouteManager.getCurrentRoute().equals("home")) {
+		if (RouteManager.getCurrentRoute().equals("customer_home")) {
 			homeSubMenu.setStyle("-fx-font-weight: bold; -fx-text-fill: black;");
 			homeSubMenu.setDisable(true);
 			cartSubMenu.setStyle("-fx-font-weight: 100");
@@ -57,7 +57,7 @@ abstract public class AppShell {
 			cartSubMenu.setDisable(true);
 			homeSubMenu.setStyle("-fx-font-weight: 100");
 			homeSubMenu.setOnAction(e -> {
-				RouteManager.navigate("home");
+				RouteManager.navigate("customer_home");
 			});
 		}
 
