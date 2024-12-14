@@ -5,9 +5,7 @@ import javafx.scene.layout.Pane;
 
 abstract public class Page {
 
-	
 	public Page() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public Scene render() {
