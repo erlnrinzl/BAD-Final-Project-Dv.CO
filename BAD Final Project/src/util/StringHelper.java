@@ -18,7 +18,6 @@ public class StringHelper {
 
 	public static boolean isAlphanumeric(String string) {
 		for (int i = 0; i < string.length(); i++) {
-
 			Character ch = string.charAt(i);
 
 			if (!Character.isLetterOrDigit(ch))
@@ -31,7 +30,6 @@ public class StringHelper {
 
 	public static boolean isNumeric(String string) {
 		for (int i = 0; i < string.length(); i++) {
-
 			Character ch = string.charAt(i);
 
 			if (!Character.isDigit(ch))

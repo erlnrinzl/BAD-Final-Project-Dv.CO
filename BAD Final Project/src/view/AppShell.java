@@ -7,6 +7,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import model.User;
 import util.RouteManager;
 import util.SessionManager;
 
@@ -18,7 +19,9 @@ abstract public class AppShell {
 		clearMenus();
 
 		if (SessionManager.isLoggedIn()) {
-			if (SessionManager.getUser().getRole().equalsIgnoreCase("admin")) {
+			User user = SessionManager.getUser();
+			
+			if (user.getRole().equalsIgnoreCase("admin")) {
 				renderAdminMenu();
 			} else {
 				renderCustomerMenu();

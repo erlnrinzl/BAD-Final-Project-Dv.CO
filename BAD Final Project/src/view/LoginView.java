@@ -2,6 +2,7 @@ package view;
 
 import controller.AuthController;
 import exception.AuthException;
+import exception.FormException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -90,7 +91,7 @@ public class LoginView extends Page {
 
 			try {
 				controller.login(email, password);
-			} catch (AuthException error) {
+			} catch (AuthException | FormException error) {
 				Alert alert = new Alert(AlertType.ERROR);
 				
 				alert.setContentText(error.getMessage());
