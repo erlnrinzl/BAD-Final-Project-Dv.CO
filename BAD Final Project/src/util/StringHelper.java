@@ -39,4 +39,13 @@ public class StringHelper {
 
 		return true;
 	}
+
+	public static Double toDouble(String number) {
+		try {
+			return Double.parseDouble(number);
+		} catch (Exception error) {
+			return (double) 0;
+		}
+	}
+	
 }

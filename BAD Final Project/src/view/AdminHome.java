@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.Donut;
 import util.SessionManager;
+import util.StringHelper;
 
 public class AdminHome extends Page {
 
@@ -81,7 +82,7 @@ public class AdminHome extends Page {
 			try {
 				String name = donutNameField.getText();
 				String description = donutDescriptionField.getText();
-				Double price = Double.parseDouble(donutPriceField.getText());
+				Double price = StringHelper.toDouble(donutPriceField.getText());
 
 				Donut donut = new Donut();
 				donut.setDonutName(name);
@@ -110,11 +111,10 @@ public class AdminHome extends Page {
 					throw new FormException("Please select a donut!");
 
 				int index = donuts.indexOf(activeDonut);
-				Double price = Double.parseDouble(donutPriceField.getText());
 
 				activeDonut.setDonutName(donutNameField.getText());
 				activeDonut.setDonutDescription(donutDescriptionField.getText());
-				activeDonut.setDonutPrice(price);
+				activeDonut.setDonutPrice(StringHelper.toDouble(donutPriceField.getText()));
 
 				controller.update(activeDonut);
 				donuts.set(index, activeDonut);
