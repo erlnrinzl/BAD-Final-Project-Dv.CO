@@ -2,9 +2,9 @@ package view;
 
 import controller.AuthController;
 import exception.AuthException;
+import exception.FormException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -15,7 +15,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -24,6 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.User;
 import util.RouteManager;
+import view.component.AlertComponent;
 
 public class RegisterView extends Page {
 	private AuthController controller;
@@ -167,11 +167,11 @@ public class RegisterView extends Page {
 		registerBtn.setOnAction(e -> {
 			try {
 				if (!passField.getText().equals(confirmPassField.getText())) {
-					throw new AuthException("Confirm Password must be the same as Password");
+					throw new FormException("Confirm Password must be the same as Password");
 				}
 				
 				if (!termsCheckbox.isSelected()) {
-					throw new AuthException("Terms and Conditions must be checked");
+					throw new FormException("Terms and Conditions must be checked");
 				}
 				
 				User user = new User();
@@ -180,7 +180,7 @@ public class RegisterView extends Page {
 				try {
 					age = ageSpinner.getValue();
 				} catch (Exception error) {
-					throw new AuthException("Please enter valid Age");
+					throw new FormException("Please enter valid Age");
 				}
 				
 				user.setUsername(usernameField.getText());
@@ -193,12 +193,9 @@ public class RegisterView extends Page {
 				user.setRole("User");
 				
 				controller.register(user);
-			} catch (AuthException error) {
-				Alert alert = new Alert(AlertType.ERROR);
-
-				alert.setContentText(error.getMessage());
-				alert.show();
-			}
+				AlertComponent.success("Success", "Registration Success", "Successfully register user");
+			} catch (AuthException | FormException error) {
+				AlertComponent.error("Registration Failed", "Error", error.getMessage());			}
 		});
 	}
 

@@ -14,13 +14,13 @@ public class DonutDAO {
 
 	public Donut create(Donut donut) {
 		String sql = "INSERT INTO msdonut (DonutID, DonutName, DonutDescription, DonutPrice) VALUES (?, ?, ?, ?)";
-		
+
 		try {
 			Connection connection = DatabaseConfig.getConnection();
 			PreparedStatement statement = connection.prepareStatement(sql);
 
 			String donutID = this.getCreateID();
-			
+
 			statement.setString(1, donutID);
 			statement.setString(2, donut.getDonutName());
 			statement.setString(3, donut.getDonutDescription());
@@ -35,7 +35,7 @@ public class DonutDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
 
@@ -44,9 +44,9 @@ public class DonutDAO {
 		String sql = "SELECT * FROM msdonut";
 
 		try {
-			Connection conn = DatabaseConfig.getConnection();
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
+			Connection connection = DatabaseConfig.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
 
 			while (rs.next()) {
 				Donut donut = new Donut(rs.getString("DonutID"), rs.getString("DonutName"),
@@ -54,6 +54,7 @@ public class DonutDAO {
 
 				donuts.add(donut);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -65,15 +66,15 @@ public class DonutDAO {
 		String sql = "UPDATE msdonut SET DonutName = ?, DonutDescription = ?, DonutPrice = ? WHERE DonutID = ?";
 
 		try {
-			Connection conn = DatabaseConfig.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			Connection connection = DatabaseConfig.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
 
-			stmt.setString(1, donut.getDonutName());
-			stmt.setString(2, donut.getDonutDescription());
-			stmt.setDouble(3, donut.getDonutPrice());
-			stmt.setString(4, donut.getDonutID());
+			statement.setString(1, donut.getDonutName());
+			statement.setString(2, donut.getDonutDescription());
+			statement.setDouble(3, donut.getDonutPrice());
+			statement.setString(4, donut.getDonutID());
 
-			stmt.executeUpdate();
+			statement.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -83,11 +84,11 @@ public class DonutDAO {
 	public void delete(String donutId) {
 		String sql = "DELETE FROM msdonut WHERE DonutID = ?";
 		try {
-			Connection conn = DatabaseConfig.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			Connection connection = DatabaseConfig.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
 
-			stmt.setString(1, donutId);
-			stmt.executeUpdate();
+			statement.setString(1, donutId);
+			statement.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -96,12 +97,13 @@ public class DonutDAO {
 
 	public Donut getDonutByID(String donutId) {
 		String sql = "SELECT * FROM msdonut WHERE DonutID = ?";
-		try {
-			Connection conn = DatabaseConfig.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql);
 
-			stmt.setString(1, donutId);
-			ResultSet rs = stmt.executeQuery();
+		try {
+			Connection connection = DatabaseConfig.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setString(1, donutId);
+			ResultSet rs = statement.executeQuery();
 
 			if (rs.next()) {
 				return new Donut(rs.getString("DonutID"), rs.getString("DonutName"), rs.getString("DonutDescription"),
@@ -111,10 +113,12 @@ public class DonutDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 		return null;
 	}
 
 	private String getCreateID() throws SQLException {
+		String prefixID = "DN";
 		String sql = "SELECT DonutID FROM msdonut ORDER BY DonutID DESC LIMIT 1";
 
 		Connection connection = DatabaseConfig.getConnection();
@@ -123,10 +127,10 @@ public class DonutDAO {
 
 		if (rs.next()) {
 			String latestId = rs.getString("DonutID");
-			String latestIdDigits = latestId.replace("DN", "");
+			String latestIdDigits = latestId.replace(prefixID, "");
 			Integer id = Integer.parseInt(latestIdDigits) + 1;
 
-			return "DN" + StringHelper.addLeadingZeros(id, 3);
+			return prefixID + StringHelper.addLeadingZeros(id, 3);
 		}
 
 		return null;

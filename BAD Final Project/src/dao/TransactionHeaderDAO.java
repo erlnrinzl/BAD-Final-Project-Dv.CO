@@ -7,14 +7,15 @@ import java.sql.SQLException;
 
 import model.TransactionHeader;
 
-public class TransactionHeaderDAO extends DatabaseConfig {
+public class TransactionHeaderDAO {
 	
     public String generateTransactionID() {
         String sql = "SELECT * FROM transactionheader ORDER BY TransactionID DESC LIMIT 1";
+        
         try {
-        	Connection conn = getConnection();
-        	PreparedStatement stmt = conn.prepareStatement(sql);
-        	ResultSet rs = stmt.executeQuery();
+        	Connection connection = DatabaseConfig.getConnection();
+        	PreparedStatement statement = connection.prepareStatement(sql);
+        	ResultSet rs = statement.executeQuery();
         	
             if (rs.next()) {
             	String lastTransactionID = rs.getString("TransactionID");
@@ -24,21 +25,24 @@ public class TransactionHeaderDAO extends DatabaseConfig {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
         return "TR001";
     }
     
 	public void create(TransactionHeader transactionHeader) {
 		String sql = "INSERT INTO transactionheader (TransactionID, UserID) VALUES (?, ?)";
+		
 		try {
-			Connection conn = getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			Connection connection = DatabaseConfig.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
 			
-			stmt.setString(1, transactionHeader.getTransactionID());
-			stmt.setString(2, transactionHeader.getUserID());
+			statement.setString(1, transactionHeader.getTransactionID());
+			statement.setString(2, transactionHeader.getUserID());
 			
-			stmt.executeUpdate();
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 }
