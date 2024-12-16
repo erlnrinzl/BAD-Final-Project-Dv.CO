@@ -47,7 +47,7 @@ public class CartView extends Page {
 		titleLabel.setFont(new Font("Arial Black", 36));
 
 		subtotalLabel = new Label();
-		updateSubtotalLabel();
+		updateSubtotalLabel(cartController.getUserCart());
 
 		cartTable = new TableView<>();
 		setupCartTable();
@@ -73,7 +73,7 @@ public class CartView extends Page {
 				selectedCart = newValue;
 				selectedUserCarts.clear();
 				selectedUserCarts.add(selectedCart);
-				updateSubtotalLabel();
+				updateSubtotalLabel(selectedUserCarts);
 			}
 		});
 
@@ -85,7 +85,7 @@ public class CartView extends Page {
 				AlertComponent.success("Success", "Checkout success");
 
 				selectedCart = null;
-				updateSubtotalLabel();
+				updateSubtotalLabel(selectedUserCarts);
 				cartTable.setItems(cartController.getUserCart());
 			} else {
 				AlertComponent.error("Checkout Failed", "Error", "No item selected for checkout");
@@ -113,8 +113,8 @@ public class CartView extends Page {
 		cartTable.setItems(cartController.getUserCart());
 	}
 
-	private void updateSubtotalLabel() {
-		subtotalLabel.setText("Rp." + String.format("%,.2f", cartController.calculateSubtotal(selectedUserCarts)));
+	private void updateSubtotalLabel(ObservableList cart) {
+		subtotalLabel.setText("Rp." + String.format("%,.2f", cartController.calculateSubtotal(cart)));
 		subtotalLabel.setFont(new Font("Arial Black", 12));
 	}
 }
