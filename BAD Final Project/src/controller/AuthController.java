@@ -38,45 +38,45 @@ public class AuthController {
 		throw new AuthException("Wrong credentials");
 	}
 
-	public void register(User user) throws AuthException {
+	public void register(User user) throws AuthException, FormException {
 		if (user.getUsername().isBlank()) {
-			throw new AuthException("Username cannot be empty");
+			throw new FormException("Username cannot be empty");
 		}
 
 		if (user.getUsername().length() <= 3 || user.getUsername().length() >= 15) {
-			throw new AuthException("Username must be between 3 - 15 characters");
+			throw new FormException("Username must be between 3 - 15 characters");
 		}
 
 		if (user.getEmail().isBlank()) {
-			throw new AuthException("Email cannot be empty");
+			throw new FormException("Email cannot be empty");
 		}
 
 		if (!user.getEmail().endsWith("@gmail.com")) {
-			throw new AuthException("Email must end with '@gmail.com'");
+			throw new FormException("Email must end with '@gmail.com'");
 		}
 
 		if (user.getPassword().isBlank()) {
-			throw new AuthException("Password cannot be empty");
+			throw new FormException("Password cannot be empty");
 		}
 
 		if (!StringHelper.isAlphanumeric(user.getPassword())) {
-			throw new AuthException("Password must be alphanumeric");
+			throw new FormException("Password must be alphanumeric");
 		}
 
 		if (user.getAge() <= 13) {
-			throw new AuthException("Age must be older than 13 years");
+			throw new FormException("Age must be older than 13 years");
 		}
 
 		if (user.getPhoneNumber().isBlank()) {
-			throw new AuthException("Phone Number cannot be empty");
+			throw new FormException("Phone Number cannot be empty");
 		}
 
 		if (user.getPhoneNumber().length() >= 15) {
-			throw new AuthException("Phone Number must be less than 15 characters long");
+			throw new FormException("Phone Number must be less than 15 characters long");
 		}
 
 		if (!StringHelper.isNumeric(user.getPhoneNumber())) {
-			throw new AuthException("Phone Number must be numeric");
+			throw new FormException("Phone Number must be numeric");
 		}
 
 		if (dao.create(user) != null) {

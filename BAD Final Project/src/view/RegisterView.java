@@ -2,6 +2,7 @@ package view;
 
 import controller.AuthController;
 import exception.AuthException;
+import exception.FormException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -166,11 +167,11 @@ public class RegisterView extends Page {
 		registerBtn.setOnAction(e -> {
 			try {
 				if (!passField.getText().equals(confirmPassField.getText())) {
-					throw new AuthException("Confirm Password must be the same as Password");
+					throw new FormException("Confirm Password must be the same as Password");
 				}
 				
 				if (!termsCheckbox.isSelected()) {
-					throw new AuthException("Terms and Conditions must be checked");
+					throw new FormException("Terms and Conditions must be checked");
 				}
 				
 				User user = new User();
@@ -179,7 +180,7 @@ public class RegisterView extends Page {
 				try {
 					age = ageSpinner.getValue();
 				} catch (Exception error) {
-					throw new AuthException("Please enter valid Age");
+					throw new FormException("Please enter valid Age");
 				}
 				
 				user.setUsername(usernameField.getText());
@@ -192,9 +193,9 @@ public class RegisterView extends Page {
 				user.setRole("User");
 				
 				controller.register(user);
-				AlertComponent.success("Success", "Successfully register user");
-			} catch (AuthException error) {
-				AlertComponent.error("Failed", error.getMessage());			}
+				AlertComponent.success("Success", "Registration Success", "Successfully register user");
+			} catch (AuthException | FormException error) {
+				AlertComponent.error("Registration Failed", "Error", error.getMessage());			}
 		});
 	}
 

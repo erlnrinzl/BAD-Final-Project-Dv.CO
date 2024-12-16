@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.Donut;
 import util.SessionManager;
+import view.component.AlertComponent;
 
 public class HomeView extends Page {
 
@@ -104,6 +105,8 @@ public class HomeView extends Page {
         addCartBtn.setOnAction(e -> {
             Integer qty = qtySpinner.getValue();
             cartController.addCart(qty, donut);
+            
+            AlertComponent.success("Success", "Donut successfully added to cart");
         });
 
         detailLayout.getChildren().addAll(productNameLabel, productDescLabel, productPriceLabel, qtySpinner, addCartBtn);

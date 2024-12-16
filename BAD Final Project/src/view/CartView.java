@@ -88,7 +88,7 @@ public class CartView extends Page {
 				updateSubtotalLabel();
 				cartTable.setItems(cartController.getUserCart());
 			} else {
-				AlertComponent.error("Failed", "No item selected for checkout");
+				AlertComponent.error("Checkout Failed", "Error", "No item selected for checkout");
 			}
 		});
 	}

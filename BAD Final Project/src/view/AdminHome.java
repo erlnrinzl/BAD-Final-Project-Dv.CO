@@ -90,16 +90,18 @@ public class AdminHome extends Page {
 
 				controller.create(donut);
 				donuts.add(donut);
+				activeDonut = null;
+				this.updateForm(null);
 
 				AlertComponent.success("Success", "Donut added successfully");
 			} catch (FormException error) {
-				AlertComponent.error("Failed", error.getMessage());
+				AlertComponent.error("Invalid Request", "Error", error.getMessage());
 			}
 
 		});
 
 		updateButton.setOnMouseClicked(e -> {
-			try {
+			try {				
 				if (activeDonut == null)
 					throw new FormException("Please select a donut!");
 

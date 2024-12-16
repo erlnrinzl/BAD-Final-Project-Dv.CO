@@ -91,11 +91,14 @@ public class LoginView extends Page {
 			try {
 				controller.login(email, password);
 			} catch (AuthException | FormException error) {
-				AlertComponent.error("Failed", error.getMessage());
+				AlertComponent.error("Login Failed", "Error", error.getMessage());
 			}
 		});
 
 		registerRouteLink.setOnMouseClicked(e -> {
+			emailField.clear();
+			passField.clear();
+			
 			RouteManager.navigate("register");
 		});
 	}
