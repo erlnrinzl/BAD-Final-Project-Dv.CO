@@ -4,7 +4,6 @@ import controller.AuthController;
 import exception.AuthException;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -15,7 +14,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -24,6 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.User;
 import util.RouteManager;
+import view.component.AlertComponent;
 
 public class RegisterView extends Page {
 	private AuthController controller;
@@ -193,12 +192,9 @@ public class RegisterView extends Page {
 				user.setRole("User");
 				
 				controller.register(user);
+				AlertComponent.success("Success", "Successfully register user");
 			} catch (AuthException error) {
-				Alert alert = new Alert(AlertType.ERROR);
-
-				alert.setContentText(error.getMessage());
-				alert.show();
-			}
+				AlertComponent.error("Failed", error.getMessage());			}
 		});
 	}
 

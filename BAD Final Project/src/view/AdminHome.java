@@ -4,14 +4,12 @@ import controller.DonutController;
 import exception.FormException;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -20,6 +18,7 @@ import javafx.scene.text.Font;
 import model.Donut;
 import util.SessionManager;
 import util.StringHelper;
+import view.component.AlertComponent;
 
 public class AdminHome extends Page {
 
@@ -92,15 +91,9 @@ public class AdminHome extends Page {
 				controller.create(donut);
 				donuts.add(donut);
 
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setContentText("Donut added successfully");
-
-				alert.show();
+				AlertComponent.success("Success", "Donut added successfully");
 			} catch (FormException error) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setContentText(error.getMessage());
-
-				alert.show();
+				AlertComponent.error("Failed", error.getMessage());
 			}
 
 		});
@@ -120,15 +113,9 @@ public class AdminHome extends Page {
 				donuts.set(index, activeDonut);
 				table.getSelectionModel().select(activeDonut);
 
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setContentText("Donut updated successfully");
-
-				alert.show();
+				AlertComponent.success("Success", "Donut updated successfully!");
 			} catch (FormException error) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setContentText("Please select a donut");
-
-				alert.show();
+				AlertComponent.error("Failed", error.getMessage());
 
 			}
 		});
@@ -139,15 +126,9 @@ public class AdminHome extends Page {
 				donuts.remove(activeDonut);
 				table.getSelectionModel().clearSelection();
 
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setContentText("Donut deleted successfully");
-
-				alert.show();
+				AlertComponent.success("Success", "Donut Deleted Successfully");
 			} catch (FormException error) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setContentText("Please select a donut");
-
-				alert.show();
+				AlertComponent.error("Failed", error.getMessage());
 			}
 		});
 	}
