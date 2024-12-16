@@ -135,9 +135,6 @@ public class AdminHome extends Page {
 
 		deleteButton.setOnMouseClicked(e -> {
 			try {
-				if (activeDonut == null)
-					throw new FormException("Please select a donut!");
-
 				controller.delete(activeDonut);
 				donuts.remove(activeDonut);
 				table.getSelectionModel().clearSelection();

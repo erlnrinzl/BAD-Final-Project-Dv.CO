@@ -49,21 +49,25 @@ public class DonutController {
 		donutDAO.update(donut);
 	}
 
-	public void delete(Donut donut) {
+	public void delete(Donut donut) throws FormException {
+		if (donut == null)
+			throw new FormException("Please select a donut!");
+		
 		donutDAO.delete(donut.getDonutID());
 	}
-	
+
 	private void validate(Donut donut) throws FormException {
 		if (donut.getDonutName().isBlank())
 			throw new FormException("Donut Name cannot be empty!");
-		
+
 		if (donut.getDonutDescription().isBlank())
 			throw new FormException("Donut Description cannot be empty!");
-		
+
 		if (donut.getDonutPrice().toString().isBlank())
 			throw new FormException("Donut Price cannot be empty!");
 
 		if (donut.getDonutPrice() <= 0)
 			throw new FormException("Donut Price should be more than 0");
 	}
+
 }
