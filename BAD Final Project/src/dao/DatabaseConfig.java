@@ -5,20 +5,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public abstract class DatabaseConfig {
-    private static final String URL = System.getenv("DB_URL");
-    private static final String USER = System.getenv("DB_USER");
-    private static final String PASSWORD = System.getenv("DB_PASS");
-    
-    private static Connection connection;
+	private static final String URL = "jdbc:mysql://localhost:3306/";
+	private static final String DB_NAME = "dvco";
+	private static final String USER = "root";
+	private static final String PASSWORD = "";
 
-    private static void init() throws SQLException {
-		connection = DriverManager.getConnection(URL, USER, PASSWORD);
-	}
-    
-    public static Connection getConnection() throws SQLException {
-        if (connection == null) {
-			init();
+	private static Connection connection;
+
+	public static Connection getConnection() throws SQLException {
+		if (connection == null) {
+			connection = DriverManager.getConnection(URL + DB_NAME, USER, PASSWORD);
 		}
-        return connection;
-    }
+
+		return connection;
+	}
 }

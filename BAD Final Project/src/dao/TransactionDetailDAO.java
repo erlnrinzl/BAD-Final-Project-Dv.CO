@@ -6,20 +6,23 @@ import java.sql.SQLException;
 
 import model.TransactionDetail;
 
-public class TransactionDetailDAO extends DatabaseConfig {
+public class TransactionDetailDAO {
+	
 	public void create(TransactionDetail transactionDetail) {
 		String sql = "INSERT INTO transactiondetail (TransactionID, DonutID, Quantity) VALUES (?, ?, ?)";
+		
 		try {
-			Connection conn = getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql);
+			Connection connection = DatabaseConfig.getConnection();
+			PreparedStatement statement = connection.prepareStatement(sql);
 			
-			stmt.setString(1, transactionDetail.getTransactionID());
-			stmt.setString(2, transactionDetail.getDonutID());
-			stmt.setInt(3, transactionDetail.getQuantity());
+			statement.setString(1, transactionDetail.getTransactionID());
+			statement.setString(2, transactionDetail.getDonutID());
+			statement.setInt(3, transactionDetail.getQuantity());
 			
-			stmt.executeUpdate();
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
 }
