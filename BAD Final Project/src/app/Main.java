@@ -1,6 +1,7 @@
 package app;
 
 import javafx.application.Application;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import model.User;
 import util.RouteManager;
@@ -10,6 +11,7 @@ import view.CartView;
 import view.HomeView;
 import view.LoginView;
 import view.RegisterView;
+import view.component.AlertComponent;
 
 public class Main extends Application {
 
@@ -25,19 +27,22 @@ public class Main extends Application {
 		RouteManager.addRoute("admin_home", new AdminHome(), "Dv.CO | Home");
 		RouteManager.addRoute("customer_home", new HomeView(), "Dv.CO | Home");
 		RouteManager.addRoute("cart", new CartView(), "Dv.CO | Cart");
-		
+
 		try {
 			RouteManager.navigate("login");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		primaryStage.show();
-//		primaryStage.setOnCloseRequest(e->{
-//			Alert alert = new Alert(AlertType.CONFIRMATION);
-//			alert.showAndWait();
-//		});
+		primaryStage.setOnCloseRequest(e -> {
+			e.consume();
+
+			AlertComponent.confirm("Confirmation", "Are you sure?").ifPresent(response -> {
+				if (response == ButtonType.OK)
+					primaryStage.close();
+			});
+		});
 	}
-	
 
 }
